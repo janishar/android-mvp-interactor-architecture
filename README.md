@@ -1,8 +1,19 @@
-# Android MVP Architecture: Sample App
+# Android MVP Architecture: Enhanced with Interactors and Repositories: Sample App
 [![Mindorks](https://img.shields.io/badge/mindorks-opensource-blue.svg)](https://mindorks.com/open-source-projects)
 [![Mindorks Community](https://img.shields.io/badge/join-community-blue.svg)](https://mindorks.com/join-community)
 
-This repository contains a detailed sample app that implements MVP architecture using Dagger2, GreenDao, RxJava, FastAndroidNetworking, PlaceHolderView and AndroidDebugDatabase
+This repository is an extension of the [android-mvp-architecture](https://github.com/MindorksOpenSource/android-mvp-architecture). It breaks the DataManager into Interactors and DbHelper into Repositories. These changes makes it fit for very large projects, for smaller projects the above mentioned repository is better.
+
+This repository contains a detailed sample app that implements MVP architecture enhanced with Interactors and DbRepositories for complete decoupling, using Dagger2, GreenDao, RxJava, FastAndroidNetworking, PlaceHolderView and AndroidDebugDatabase
+
+# Architecture Blueprint
+![Blueprint](https://janishar.github.io/images/mvp-app-pics/mvp-interactor-arch.png)
+<br>
+
+# Project Structure
+![Structure](https://janishar.github.io/images/mvp-app-pics/mvp-interactor-project-structure.png)
+<br>
+
 <p align="center">
   <img src="https://janishar.github.io/images/mvp-app-pics/mvp-login.png" width="250">
   <img src="https://janishar.github.io/images/mvp-app-pics/main-view.png" width="250">
@@ -18,14 +29,6 @@ This repository contains a detailed sample app that implements MVP architecture 
 <br>
 <br>
 
-# Architecture Blueprint
-![Blueprint](https://janishar.github.io/images/mvp-app-pics/mvp-arch.png)
-<br>
-
-# Project Structure
-![Structure](https://janishar.github.io/images/mvp-app-pics/mvp-project-structure-diagram.png)
-<br>
-
 # Read the below listed articles. They describe the MVP concepts and the Project structure.
 1. [MVP: Part 1](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-1-74efaf1cda40#.lkml1yggq)
 2. [MVP: Part 2](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-2-b2ac6f3f9637#.dge0wl8rl)
@@ -34,7 +37,7 @@ This repository contains a detailed sample app that implements MVP architecture 
 #### The app has following packages:
 1. **data**: It contains all the data accessing and manipulating components.
 2. **di**: Dependency providing classes using Dagger2.
-3. **ui**: View classes along with their corresponding Presenters.
+3. **ui**: View classes along with their corresponding Presenters and Interactors.
 4. **service**: Services for the application.
 5. **utils**: Utility classes.
 
