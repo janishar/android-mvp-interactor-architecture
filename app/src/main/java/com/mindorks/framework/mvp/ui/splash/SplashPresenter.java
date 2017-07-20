@@ -16,8 +16,8 @@
 package com.mindorks.framework.mvp.ui.splash;
 
 import com.mindorks.framework.mvp.R;
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
+import com.mindorks.framework.mvp.utils.AppConstants;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
@@ -81,7 +81,7 @@ public class SplashPresenter<V extends SplashMvpView, I extends SplashMvpInterac
 
     private void decideNextActivity() {
         if (getInteractor().getCurrentUserLoggedInMode()
-                == DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
+                == AppConstants.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
             getMvpView().openLoginActivity();
         } else {
             getMvpView().openMainActivity();

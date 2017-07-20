@@ -13,10 +13,9 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.ui.login;
+package com.mindorks.framework.mvp.ui.feed.blogs;
 
-import com.mindorks.framework.mvp.data.network.model.LoginRequest;
-import com.mindorks.framework.mvp.data.network.model.LoginResponse;
+import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.ui.base.MvpInteractor;
 
 import io.reactivex.Observable;
@@ -25,14 +24,8 @@ import io.reactivex.Observable;
  * Created by janisharali on 20/07/17.
  */
 
-public interface LoginMvpInteractor extends MvpInteractor {
+public interface BlogMvpInteractor extends MvpInteractor {
 
-    Observable<LoginResponse> doServerLoginApiCall(
-            LoginRequest.ServerLoginRequest request);
+    Observable<BlogResponse> getBlogApiCall();
 
-    Observable<LoginResponse> doGoogleLoginApiCall(
-            LoginRequest.GoogleLoginRequest request);
-
-    Observable<LoginResponse> doFacebookLoginApiCall(
-            LoginRequest.FacebookLoginRequest request);
 }

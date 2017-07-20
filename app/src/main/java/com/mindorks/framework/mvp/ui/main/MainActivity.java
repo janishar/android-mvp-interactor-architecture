@@ -65,7 +65,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Inject
-    MainMvpPresenter<MainMvpView> mPresenter;
+    MainMvpPresenter<MainMvpView, MainMvpInteractor> mPresenter;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;

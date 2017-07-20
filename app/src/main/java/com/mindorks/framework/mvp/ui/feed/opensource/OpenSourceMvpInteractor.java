@@ -13,18 +13,19 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.di.component;
+package com.mindorks.framework.mvp.ui.feed.opensource;
 
-import com.mindorks.framework.mvp.di.module.ApplicationTestModule;
+import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
+import com.mindorks.framework.mvp.ui.base.MvpInteractor;
 
-import javax.inject.Singleton;
-
-import dagger.Component;
+import io.reactivex.Observable;
 
 /**
- * Created by amitshekhar on 03/02/17.
+ * Created by janisharali on 20/07/17.
  */
-@Singleton
-@Component(modules = ApplicationTestModule.class)
-public interface TestComponent extends ApplicationComponent {
+
+public interface OpenSourceMvpInteractor extends MvpInteractor {
+
+    Observable<OpenSourceResponse> getOpenSourceApiCall();
+
 }

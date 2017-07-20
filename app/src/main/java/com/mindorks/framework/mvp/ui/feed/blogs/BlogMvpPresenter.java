@@ -21,8 +21,8 @@ import com.mindorks.framework.mvp.ui.base.MvpPresenter;
  * Created by janisharali on 25/05/17.
  */
 
-public interface BlogMvpPresenter<V extends BlogMvpView>
-        extends MvpPresenter<V> {
+public interface BlogMvpPresenter<V extends BlogMvpView, I extends BlogMvpInteractor>
+        extends MvpPresenter<V, I> {
 
     void onViewPrepared();
 }

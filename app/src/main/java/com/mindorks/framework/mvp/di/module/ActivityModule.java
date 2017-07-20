@@ -23,30 +23,46 @@ import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.di.ActivityContext;
 import com.mindorks.framework.mvp.di.PerActivity;
+import com.mindorks.framework.mvp.ui.about.AboutInteractor;
+import com.mindorks.framework.mvp.ui.about.AboutMvpInteractor;
 import com.mindorks.framework.mvp.ui.about.AboutMvpPresenter;
 import com.mindorks.framework.mvp.ui.about.AboutMvpView;
 import com.mindorks.framework.mvp.ui.about.AboutPresenter;
+import com.mindorks.framework.mvp.ui.feed.FeedInteractor;
+import com.mindorks.framework.mvp.ui.feed.FeedMvpInteractor;
 import com.mindorks.framework.mvp.ui.feed.FeedMvpPresenter;
 import com.mindorks.framework.mvp.ui.feed.FeedMvpView;
 import com.mindorks.framework.mvp.ui.feed.FeedPagerAdapter;
 import com.mindorks.framework.mvp.ui.feed.FeedPresenter;
 import com.mindorks.framework.mvp.ui.feed.blogs.BlogAdapter;
+import com.mindorks.framework.mvp.ui.feed.blogs.BlogInteractor;
+import com.mindorks.framework.mvp.ui.feed.blogs.BlogMvpInteractor;
 import com.mindorks.framework.mvp.ui.feed.blogs.BlogMvpPresenter;
 import com.mindorks.framework.mvp.ui.feed.blogs.BlogMvpView;
 import com.mindorks.framework.mvp.ui.feed.blogs.BlogPresenter;
 import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceAdapter;
+import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceInteractor;
+import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceMvpInteractor;
 import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceMvpPresenter;
 import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceMvpView;
 import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourcePresenter;
+import com.mindorks.framework.mvp.ui.login.LoginInteractor;
+import com.mindorks.framework.mvp.ui.login.LoginMvpInteractor;
 import com.mindorks.framework.mvp.ui.login.LoginMvpPresenter;
 import com.mindorks.framework.mvp.ui.login.LoginMvpView;
 import com.mindorks.framework.mvp.ui.login.LoginPresenter;
+import com.mindorks.framework.mvp.ui.main.MainInteractor;
+import com.mindorks.framework.mvp.ui.main.MainMvpInteractor;
 import com.mindorks.framework.mvp.ui.main.MainMvpPresenter;
 import com.mindorks.framework.mvp.ui.main.MainMvpView;
 import com.mindorks.framework.mvp.ui.main.MainPresenter;
+import com.mindorks.framework.mvp.ui.main.rating.RatingDialogInteractor;
+import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpInteractor;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpPresenter;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpView;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogPresenter;
+import com.mindorks.framework.mvp.ui.splash.SplashInteractor;
+import com.mindorks.framework.mvp.ui.splash.SplashMvpInteractor;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpView;
 import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
@@ -95,52 +111,56 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    SplashMvpPresenter<SplashMvpView> provideSplashPresenter(
-            SplashPresenter<SplashMvpView> presenter) {
+    SplashMvpPresenter<SplashMvpView, SplashMvpInteractor> provideSplashPresenter(
+            SplashPresenter<SplashMvpView, SplashMvpInteractor> presenter) {
         return presenter;
     }
 
     @Provides
-    AboutMvpPresenter<AboutMvpView> provideAboutPresenter(
-            AboutPresenter<AboutMvpView> presenter) {
-        return presenter;
-    }
-
-    @Provides
-    @PerActivity
-    LoginMvpPresenter<LoginMvpView> provideLoginPresenter(
-            LoginPresenter<LoginMvpView> presenter) {
+    AboutMvpPresenter<AboutMvpView, AboutMvpInteractor> provideAboutPresenter(
+            AboutPresenter<AboutMvpView, AboutMvpInteractor> presenter) {
         return presenter;
     }
 
     @Provides
     @PerActivity
-    MainMvpPresenter<MainMvpView> provideMainPresenter(
-            MainPresenter<MainMvpView> presenter) {
+    LoginMvpPresenter<LoginMvpView, LoginMvpInteractor> provideLoginPresenter(
+            LoginPresenter<LoginMvpView, LoginMvpInteractor> presenter) {
         return presenter;
     }
 
     @Provides
-    RatingDialogMvpPresenter<RatingDialogMvpView> provideRateUsPresenter(
-            RatingDialogPresenter<RatingDialogMvpView> presenter) {
+    @PerActivity
+    MainMvpPresenter<MainMvpView, MainMvpInteractor> provideMainPresenter(
+            MainPresenter<MainMvpView, MainMvpInteractor> presenter) {
         return presenter;
     }
 
     @Provides
-    FeedMvpPresenter<FeedMvpView> provideFeedPresenter(
-            FeedPresenter<FeedMvpView> presenter) {
+    RatingDialogMvpPresenter<RatingDialogMvpView,
+            RatingDialogMvpInteractor> provideRateUsPresenter(
+
+            RatingDialogPresenter<RatingDialogMvpView, RatingDialogMvpInteractor> presenter) {
         return presenter;
     }
 
     @Provides
-    OpenSourceMvpPresenter<OpenSourceMvpView> provideOpenSourcePresenter(
-            OpenSourcePresenter<OpenSourceMvpView> presenter) {
+    FeedMvpPresenter<FeedMvpView, FeedMvpInteractor> provideFeedPresenter(
+            FeedPresenter<FeedMvpView, FeedMvpInteractor> presenter) {
         return presenter;
     }
 
     @Provides
-    BlogMvpPresenter<BlogMvpView> provideBlogMvpPresenter(
-            BlogPresenter<BlogMvpView> presenter) {
+    OpenSourceMvpPresenter<OpenSourceMvpView,
+            OpenSourceMvpInteractor> provideOpenSourcePresenter(
+
+            OpenSourcePresenter<OpenSourceMvpView, OpenSourceMvpInteractor> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    BlogMvpPresenter<BlogMvpView, BlogMvpInteractor> provideBlogMvpPresenter(
+            BlogPresenter<BlogMvpView, BlogMvpInteractor> presenter) {
         return presenter;
     }
 
@@ -162,5 +182,55 @@ public class ActivityModule {
     @Provides
     LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
         return new LinearLayoutManager(activity);
+    }
+
+    @Provides
+    @PerActivity
+    SplashMvpInteractor provideSplashMvpInteractor(SplashInteractor interactor) {
+        return interactor;
+    }
+
+    @Provides
+    @PerActivity
+    AboutMvpInteractor provideAboutMvpInteractor(AboutInteractor interactor) {
+        return interactor;
+    }
+
+    @Provides
+    @PerActivity
+    LoginMvpInteractor provideLoginMvpInteractor(LoginInteractor interactor) {
+        return interactor;
+    }
+
+    @Provides
+    @PerActivity
+    MainMvpInteractor provideMainMvpInteractor(MainInteractor interactor) {
+        return interactor;
+    }
+
+    @Provides
+    @PerActivity
+    RatingDialogMvpInteractor provideRatingDialogMvpInteractor(
+            RatingDialogInteractor interactor) {
+        return interactor;
+    }
+
+    @Provides
+    @PerActivity
+    FeedMvpInteractor provideFeedMvpInteractor(FeedInteractor interactor) {
+        return interactor;
+    }
+
+    @Provides
+    @PerActivity
+    OpenSourceMvpInteractor provideOpenSourceMvpInteractor(
+            OpenSourceInteractor interactor) {
+        return interactor;
+    }
+
+    @Provides
+    @PerActivity
+    BlogMvpInteractor provideBlogMvpInteractor(BlogInteractor interactor) {
+        return interactor;
     }
 }

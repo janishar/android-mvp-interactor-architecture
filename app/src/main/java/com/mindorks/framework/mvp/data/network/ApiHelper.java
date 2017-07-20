@@ -21,12 +21,15 @@ import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
 
 /**
  * Created by janisharali on 27/01/17.
  */
 
+@Singleton
 public interface ApiHelper {
 
     ApiHeader getApiHeader();

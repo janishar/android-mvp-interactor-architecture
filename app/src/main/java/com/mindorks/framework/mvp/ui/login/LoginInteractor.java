@@ -15,9 +15,12 @@
 
 package com.mindorks.framework.mvp.ui.login;
 
-import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.db.repository.UserRepository;
+import com.mindorks.framework.mvp.data.disk.DiskHelper;
+import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
+import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import com.mindorks.framework.mvp.ui.base.BaseInteractor;
 
 import javax.inject.Inject;
@@ -31,49 +34,33 @@ import io.reactivex.Observable;
 public class LoginInteractor extends BaseInteractor
         implements LoginMvpInteractor {
 
+    private UserRepository mUserRepository;
+
     @Inject
-    public LoginInteractor(DataManager dataManager) {
-        super(dataManager);
+    public LoginInteractor(PreferencesHelper preferencesHelper,
+                           ApiHelper apiHelper,
+                           DiskHelper diskHelper,
+                           UserRepository userRepository) {
+
+        super(preferencesHelper, apiHelper, diskHelper);
+        mUserRepository = userRepository;
     }
 
     @Override
     public Observable<LoginResponse> doServerLoginApiCall(
             LoginRequest.ServerLoginRequest request) {
-        return getDataManager()
-                .getApiHelper()
-                .doServerLoginApiCall(request);
-    }
-
-    @Override
-    public void updateUserInfo(String accessToken,
-                               Long userId,
-                               DataManager.LoggedInMode loggedInMode,
-                               String userName,
-                               String email,
-                               String profilePicPath) {
-
-        getDataManager().updateUserInfo(
-                accessToken,
-                userId,
-                loggedInMode,
-                userName,
-                email,
-                profilePicPath);
+        return getApiHelper().doServerLoginApiCall(request);
     }
 
     @Override
     public Observable<LoginResponse> doGoogleLoginApiCall(
             LoginRequest.GoogleLoginRequest request) {
-        return getDataManager()
-                .getApiHelper()
-                .doGoogleLoginApiCall(request);
+        return getApiHelper().doGoogleLoginApiCall(request);
     }
 
     @Override
     public Observable<LoginResponse> doFacebookLoginApiCall(
             LoginRequest.FacebookLoginRequest request) {
-        return getDataManager()
-                .getApiHelper()
-                .doFacebookLoginApiCall(request);
+        return getApiHelper().doFacebookLoginApiCall(request);
     }
 }

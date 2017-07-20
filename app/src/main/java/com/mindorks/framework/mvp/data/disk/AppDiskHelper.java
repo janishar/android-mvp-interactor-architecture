@@ -13,7 +13,7 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.data.disc;
+package com.mindorks.framework.mvp.data.disk;
 
 import android.content.Context;
 
@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 
@@ -39,12 +40,13 @@ import io.reactivex.Observable;
  * Created by janisharali on 20/07/17.
  */
 
-public class AppDiscHelper implements DiscHelper {
+@Singleton
+public class AppDiskHelper implements DiskHelper {
 
     private Context mContext;
 
     @Inject
-    public AppDiscHelper(@ApplicationContext Context mContext) {
+    public AppDiskHelper(@ApplicationContext Context mContext) {
         this.mContext = mContext;
     }
 

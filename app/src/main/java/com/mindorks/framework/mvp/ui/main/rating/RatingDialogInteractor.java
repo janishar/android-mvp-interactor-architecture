@@ -15,20 +15,25 @@
 
 package com.mindorks.framework.mvp.ui.main.rating;
 
-import com.mindorks.framework.mvp.ui.base.MvpPresenter;
+import com.mindorks.framework.mvp.data.disk.DiskHelper;
+import com.mindorks.framework.mvp.data.network.ApiHelper;
+import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
+import com.mindorks.framework.mvp.ui.base.BaseInteractor;
+
+import javax.inject.Inject;
 
 /**
- * Created by janisharali on 22/03/17.
+ * Created by janisharali on 20/07/17.
  */
 
-public interface RatingDialogMvpPresenter<V extends RatingDialogMvpView,
-        I extends RatingDialogMvpInteractor> extends MvpPresenter<V, I> {
+public class RatingDialogInteractor extends BaseInteractor
+        implements RatingDialogMvpInteractor {
 
-    void onRatingSubmitted(float rating, String message);
+    @Inject
+    public RatingDialogInteractor(PreferencesHelper preferencesHelper,
+                                  ApiHelper apiHelper,
+                                  DiskHelper diskHelper) {
 
-    void onCancelClicked();
-
-    void onLaterClicked();
-
-    void onPlayStoreRatingClicked();
+        super(preferencesHelper, apiHelper, diskHelper);
+    }
 }

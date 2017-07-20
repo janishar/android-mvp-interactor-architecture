@@ -15,7 +15,10 @@
 
 package com.mindorks.framework.mvp.ui.base;
 
-import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.disk.DiskHelper;
+import com.mindorks.framework.mvp.data.network.ApiHelper;
+import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
+import com.mindorks.framework.mvp.utils.AppConstants;
 
 import javax.inject.Inject;
 
@@ -25,33 +28,79 @@ import javax.inject.Inject;
 
 public class BaseInteractor implements MvpInteractor {
 
-    private DataManager mDataManager;
+    private final PreferencesHelper mPreferencesHelper;
+    private final ApiHelper mApiHelper;
+    private final DiskHelper mDiskHelper;
 
     @Inject
-    public BaseInteractor(DataManager dataManager) {
-        mDataManager = dataManager;
+    public BaseInteractor(PreferencesHelper preferencesHelper,
+                          ApiHelper apiHelper,
+                          DiskHelper diskHelper) {
+        mPreferencesHelper = preferencesHelper;
+        mApiHelper = apiHelper;
+        mDiskHelper = diskHelper;
     }
 
     @Override
-    public DataManager getDataManager() {
-        return mDataManager;
+    public ApiHelper getApiHelper() {
+        return mApiHelper;
     }
 
     @Override
-    public void setUserAsLoggedOut() {
-        mDataManager.setUserAsLoggedOut();
+    public DiskHelper getDiscHelper() {
+        return mDiskHelper;
+    }
+
+    @Override
+    public PreferencesHelper getPreferencesHelper() {
+        return mPreferencesHelper;
     }
 
     @Override
     public void setAccessToken(String accessToken) {
-        getDataManager()
-                .getPreferencesHelper()
-                .setAccessToken(accessToken);
+        getPreferencesHelper().setAccessToken(accessToken);
 
-        getDataManager()
-                .getApiHelper()
-                .getApiHeader()
+        getApiHelper().getApiHeader()
                 .getProtectedApiHeader()
                 .setAccessToken(accessToken);
     }
+
+    @Override
+    public void updateUserInfo(
+            String accessToken,
+            Long userId,
+            AppConstants.LoggedInMode loggedInMode,
+            String userName,
+            String email,
+            String profilePicPath) {
+
+        getPreferencesHelper().setAccessToken(accessToken);
+        getPreferencesHelper().setCurrentUserId(userId);
+        getPreferencesHelper().setCurrentUserLoggedInMode(loggedInMode);
+        getPreferencesHelper().setCurrentUserName(userName);
+        getPreferencesHelper().setCurrentUserEmail(email);
+        getPreferencesHelper().setCurrentUserProfilePicUrl(profilePicPath);
+
+        updateApiHeader(userId, accessToken);
+    }
+
+    @Override
+    public void setUserAsLoggedOut() {
+        updateUserInfo(
+                null,
+                null,
+                AppConstants.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void updateApiHeader(Long userId, String accessToken) {
+        getApiHelper().getApiHeader()
+                .getProtectedApiHeader().setUserId(userId);
+        getApiHelper().getApiHeader()
+                .getProtectedApiHeader().setAccessToken(accessToken);
+    }
+
 }

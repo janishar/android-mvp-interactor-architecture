@@ -13,26 +13,26 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.ui.login;
+package com.mindorks.framework.mvp.ui.feed;
 
-import com.mindorks.framework.mvp.data.network.model.LoginRequest;
-import com.mindorks.framework.mvp.data.network.model.LoginResponse;
-import com.mindorks.framework.mvp.ui.base.MvpInteractor;
+import com.mindorks.framework.mvp.data.disk.DiskHelper;
+import com.mindorks.framework.mvp.data.network.ApiHelper;
+import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
+import com.mindorks.framework.mvp.ui.base.BaseInteractor;
 
-import io.reactivex.Observable;
+import javax.inject.Inject;
 
 /**
  * Created by janisharali on 20/07/17.
  */
 
-public interface LoginMvpInteractor extends MvpInteractor {
+public class FeedInteractor extends BaseInteractor implements FeedMvpInteractor {
 
-    Observable<LoginResponse> doServerLoginApiCall(
-            LoginRequest.ServerLoginRequest request);
+    @Inject
+    public FeedInteractor(PreferencesHelper preferencesHelper,
+                          ApiHelper apiHelper,
+                          DiskHelper diskHelper) {
 
-    Observable<LoginResponse> doGoogleLoginApiCall(
-            LoginRequest.GoogleLoginRequest request);
-
-    Observable<LoginResponse> doFacebookLoginApiCall(
-            LoginRequest.FacebookLoginRequest request);
+        super(preferencesHelper, apiHelper, diskHelper);
+    }
 }

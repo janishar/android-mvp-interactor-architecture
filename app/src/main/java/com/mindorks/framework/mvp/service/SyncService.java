@@ -22,9 +22,9 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.mindorks.framework.mvp.MvpApp;
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.di.component.DaggerServiceComponent;
 import com.mindorks.framework.mvp.di.component.ServiceComponent;
+import com.mindorks.framework.mvp.di.module.ServiceModule;
 import com.mindorks.framework.mvp.utils.AppLogger;
 
 import javax.inject.Inject;
@@ -38,7 +38,7 @@ public class SyncService extends Service {
     private static final String TAG = "SyncService";
 
     @Inject
-    DataManager mDataManager;
+    SyncInteractor mInteractor;
 
     public static Intent getStartIntent(Context context) {
         return new Intent(context, SyncService.class);
@@ -57,6 +57,7 @@ public class SyncService extends Service {
     public void onCreate() {
         super.onCreate();
         ServiceComponent component = DaggerServiceComponent.builder()
+                .serviceModule(new ServiceModule(this))
                 .applicationComponent(((MvpApp) getApplication()).getComponent())
                 .build();
         component.inject(this);

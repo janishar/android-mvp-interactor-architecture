@@ -66,4 +66,13 @@ public class QuestionRepository {
             }
         });
     }
+
+    public Observable<List<Question>> getAllQuestions() {
+        return Observable.fromCallable(new Callable<List<Question>>() {
+            @Override
+            public List<Question> call() throws Exception {
+                return mDaoSession.getQuestionDao().loadAll();
+            }
+        });
+    }
 }

@@ -16,7 +16,6 @@
 package com.mindorks.framework.mvp.ui.feed.opensource;
 
 import com.androidnetworking.error.ANError;
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
@@ -31,20 +30,21 @@ import io.reactivex.functions.Consumer;
  * Created by janisharali on 25/05/17.
  */
 
-public class OpenSourcePresenter<V extends OpenSourceMvpView> extends BasePresenter<V>
-        implements OpenSourceMvpPresenter<V> {
+public class OpenSourcePresenter<V extends OpenSourceMvpView,
+        I extends OpenSourceMvpInteractor> extends BasePresenter<V, I>
+        implements OpenSourceMvpPresenter<V, I> {
 
     @Inject
-    public OpenSourcePresenter(DataManager dataManager,
+    public OpenSourcePresenter(I mvpInteractor,
                                SchedulerProvider schedulerProvider,
                                CompositeDisposable compositeDisposable) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
     @Override
     public void onViewPrepared() {
         getMvpView().showLoading();
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .getOpenSourceApiCall()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())

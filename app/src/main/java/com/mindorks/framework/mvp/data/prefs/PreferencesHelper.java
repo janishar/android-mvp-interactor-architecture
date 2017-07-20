@@ -15,17 +15,20 @@
 
 package com.mindorks.framework.mvp.data.prefs;
 
-import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.utils.AppConstants;
+
+import javax.inject.Singleton;
 
 /**
  * Created by janisharali on 27/01/17.
  */
 
+@Singleton
 public interface PreferencesHelper {
 
     int getCurrentUserLoggedInMode();
 
-    void setCurrentUserLoggedInMode(DataManager.LoggedInMode mode);
+    void setCurrentUserLoggedInMode(AppConstants.LoggedInMode mode);
 
     Long getCurrentUserId();
 

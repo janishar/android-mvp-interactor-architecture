@@ -13,35 +13,36 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.ui.base;
+package com.mindorks.framework.mvp.ui.feed.blogs;
 
 import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
+import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
-import com.mindorks.framework.mvp.utils.AppConstants;
+import com.mindorks.framework.mvp.ui.base.BaseInteractor;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observable;
 
 /**
  * Created by janisharali on 20/07/17.
  */
 
-public interface MvpInteractor {
+public class BlogInteractor extends BaseInteractor
+        implements BlogMvpInteractor {
 
-    ApiHelper getApiHelper();
+    @Inject
+    public BlogInteractor(PreferencesHelper preferencesHelper,
+                          ApiHelper apiHelper,
+                          DiskHelper diskHelper) {
 
-    DiskHelper getDiscHelper();
+        super(preferencesHelper, apiHelper, diskHelper);
+    }
 
-    PreferencesHelper getPreferencesHelper();
+    @Override
+    public Observable<BlogResponse> getBlogApiCall() {
+        return getApiHelper().getBlogApiCall();
+    }
 
-    void setUserAsLoggedOut();
-
-    void setAccessToken(String accessToken);
-
-    void updateUserInfo(String accessToken,
-                        Long userId,
-                        AppConstants.LoggedInMode loggedInMode,
-                        String userName,
-                        String email,
-                        String profilePicPath);
-
-    void updateApiHeader(Long userId, String accessToken);
 }

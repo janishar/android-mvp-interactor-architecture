@@ -15,9 +15,12 @@
 
 package com.mindorks.framework.mvp.ui.main;
 
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.db.model.Question;
+import com.mindorks.framework.mvp.data.db.repository.QuestionRepository;
+import com.mindorks.framework.mvp.data.disk.DiskHelper;
+import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import com.mindorks.framework.mvp.ui.base.BaseInteractor;
 
 import java.util.List;
@@ -33,37 +36,41 @@ import io.reactivex.Observable;
 public class MainInteractor extends BaseInteractor
         implements MainMvpInteractor {
 
+    private QuestionRepository mQuestionRepository;
+
     @Inject
-    public MainInteractor(DataManager dataManager) {
-        super(dataManager);
+    public MainInteractor(PreferencesHelper preferencesHelper,
+                          ApiHelper apiHelper,
+                          DiskHelper diskHelper,
+                          QuestionRepository questionRepository) {
+
+        super(preferencesHelper, apiHelper, diskHelper);
+        mQuestionRepository = questionRepository;
     }
 
     @Override
     public Observable<LogoutResponse> doLogoutApiCall() {
-        return getDataManager().getApiHelper().doLogoutApiCall();
+        return getApiHelper().doLogoutApiCall();
     }
 
     @Override
     public Observable<List<Question>> getAllQuestions() {
-        return getDataManager().getDbHelper().getAllQuestions();
+        return mQuestionRepository.getAllQuestions();
     }
 
     @Override
     public String getCurrentUserName() {
-        return getDataManager().getPreferencesHelper()
-                .getCurrentUserName();
+        return getPreferencesHelper().getCurrentUserName();
     }
 
     @Override
     public String getCurrentUserEmail() {
-        return getDataManager().getPreferencesHelper()
-                .getCurrentUserEmail();
+        return getPreferencesHelper().getCurrentUserEmail();
     }
 
     @Override
     public String getCurrentUserProfilePicUrl() {
-        return getDataManager().getPreferencesHelper()
-                .getCurrentUserProfilePicUrl();
+        return getPreferencesHelper().getCurrentUserProfilePicUrl();
     }
 
 }

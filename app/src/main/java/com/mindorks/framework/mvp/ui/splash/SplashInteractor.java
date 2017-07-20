@@ -15,9 +15,13 @@
 
 package com.mindorks.framework.mvp.ui.splash;
 
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
+import com.mindorks.framework.mvp.data.db.repository.OptionRepository;
+import com.mindorks.framework.mvp.data.db.repository.QuestionRepository;
+import com.mindorks.framework.mvp.data.disk.DiskHelper;
+import com.mindorks.framework.mvp.data.network.ApiHelper;
+import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import com.mindorks.framework.mvp.ui.base.BaseInteractor;
 
 import java.util.List;
@@ -36,22 +40,31 @@ import io.reactivex.functions.Function;
 public class SplashInteractor extends BaseInteractor
         implements SplashMvpInteractor {
 
+    private QuestionRepository mQuestionRepository;
+    private OptionRepository mOptionRepository;
+
     @Inject
-    public SplashInteractor(DataManager dataManager) {
-        super(dataManager);
+    public SplashInteractor(PreferencesHelper preferencesHelper,
+                            ApiHelper apiHelper,
+                            DiskHelper diskHelper,
+                            QuestionRepository questionRepository,
+                            OptionRepository optionRepository) {
+
+        super(preferencesHelper, apiHelper, diskHelper);
+        mQuestionRepository = questionRepository;
+        mOptionRepository = optionRepository;
     }
 
     @Override
     public Observable<Boolean> seedDatabaseQuestions() {
 
-        return getDataManager().getDbHelper().isQuestionEmpty()
+        return mQuestionRepository.isQuestionEmpty()
                 .concatMap(new Function<Boolean, ObservableSource<? extends Boolean>>() {
                     @Override
                     public ObservableSource<? extends Boolean> apply(@NonNull Boolean isEmpty)
                             throws Exception {
                         if (isEmpty) {
-                            return getDataManager()
-                                    .getDiscHelper()
+                            return getDiscHelper()
                                     .getQuizQuestions()
                                     .concatMap(new Function<List<Question>,
                                             ObservableSource<? extends Boolean>>() {
@@ -59,8 +72,7 @@ public class SplashInteractor extends BaseInteractor
                                         public ObservableSource<? extends Boolean> apply(
                                                 @NonNull List<Question> questions) throws
                                                 Exception {
-                                            return getDataManager()
-                                                    .getDbHelper()
+                                            return mQuestionRepository
                                                     .saveQuestionList(questions);
                                         }
                                     });
@@ -74,16 +86,14 @@ public class SplashInteractor extends BaseInteractor
     @Override
     public Observable<Boolean> seedDatabaseOptions() {
 
-        return getDataManager()
-                .getDbHelper()
+        return mOptionRepository
                 .isOptionEmpty()
                 .concatMap(new Function<Boolean, ObservableSource<? extends Boolean>>() {
                     @Override
                     public ObservableSource<? extends Boolean> apply(Boolean isEmpty)
                             throws Exception {
                         if (isEmpty) {
-                            return getDataManager()
-                                    .getDiscHelper()
+                            return getDiscHelper()
                                     .getQuizOptions()
                                     .concatMap(new Function<List<Option>,
                                             ObservableSource<? extends Boolean>>() {
@@ -91,8 +101,7 @@ public class SplashInteractor extends BaseInteractor
                                         public ObservableSource<? extends Boolean> apply(
                                                 @NonNull List<Option> options) throws
                                                 Exception {
-                                            return getDataManager()
-                                                    .getDbHelper()
+                                            return mOptionRepository
                                                     .saveOptionList(options);
                                         }
                                     });
@@ -105,8 +114,6 @@ public class SplashInteractor extends BaseInteractor
 
     @Override
     public int getCurrentUserLoggedInMode() {
-        return getDataManager()
-                .getPreferencesHelper()
-                .getCurrentUserLoggedInMode();
+        return getPreferencesHelper().getCurrentUserLoggedInMode();
     }
 }

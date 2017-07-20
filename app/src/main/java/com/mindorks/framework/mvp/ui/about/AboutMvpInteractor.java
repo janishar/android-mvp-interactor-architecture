@@ -13,23 +13,14 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.data.disc;
+package com.mindorks.framework.mvp.ui.about;
 
-import com.mindorks.framework.mvp.data.db.model.Option;
-import com.mindorks.framework.mvp.data.db.model.Question;
-
-import java.util.List;
-
-import io.reactivex.Observable;
-
+import com.mindorks.framework.mvp.ui.base.MvpInteractor;
 
 /**
  * Created by janisharali on 20/07/17.
  */
 
-public interface DiscHelper {
+public interface AboutMvpInteractor extends MvpInteractor {
 
-    Observable<List<Question>> getQuizQuestions();
-
-    Observable<List<Option>> getQuizOptions();
 }

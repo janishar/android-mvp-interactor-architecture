@@ -15,7 +15,6 @@
 
 package com.mindorks.framework.mvp.ui.about;
 
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
@@ -27,13 +26,14 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by janisharali on 27/01/17.
  */
 
-public class AboutPresenter<V extends AboutMvpView> extends BasePresenter<V>
-        implements AboutMvpPresenter<V> {
+public class AboutPresenter<V extends AboutMvpView,
+        I extends AboutMvpInteractor> extends BasePresenter<V, I>
+        implements AboutMvpPresenter<V, I> {
 
     @Inject
-    public AboutPresenter(DataManager dataManager,
+    public AboutPresenter(I mvpInteractor,
                           SchedulerProvider schedulerProvider,
                           CompositeDisposable compositeDisposable) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 }

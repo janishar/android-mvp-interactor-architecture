@@ -46,7 +46,7 @@ public class OpenSourceFragment extends BaseFragment implements
     private static final String TAG = "OpenSourceFragment";
 
     @Inject
-    OpenSourceMvpPresenter<OpenSourceMvpView> mPresenter;
+    OpenSourceMvpPresenter<OpenSourceMvpView, OpenSourceMvpInteractor> mPresenter;
 
     @Inject
     OpenSourceAdapter mOpenSourceAdapter;

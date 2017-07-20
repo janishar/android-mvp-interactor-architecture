@@ -13,22 +13,26 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.data.db;
+package com.mindorks.framework.mvp.data.disk;
 
-import com.mindorks.framework.mvp.data.db.repository.OptionRepository;
-import com.mindorks.framework.mvp.data.db.repository.QuestionRepository;
-import com.mindorks.framework.mvp.data.db.repository.UserRepository;
+import com.mindorks.framework.mvp.data.db.model.Option;
+import com.mindorks.framework.mvp.data.db.model.Question;
+
+import java.util.List;
+
+import javax.inject.Singleton;
+
+import io.reactivex.Observable;
 
 
 /**
- * Created by janisharali on 08/12/16.
+ * Created by janisharali on 20/07/17.
  */
 
-public interface DbHelper {
+@Singleton
+public interface DiskHelper {
 
-    UserRepository getUserRepository();
+    Observable<List<Question>> getQuizQuestions();
 
-    OptionRepository getOptionRepository();
-
-    QuestionRepository getQuestionRepository();
+    Observable<List<Option>> getQuizOptions();
 }
