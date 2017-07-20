@@ -15,13 +15,9 @@
 
 package com.mindorks.framework.mvp.data.db;
 
-import com.mindorks.framework.mvp.data.db.model.Option;
-import com.mindorks.framework.mvp.data.db.model.Question;
-import com.mindorks.framework.mvp.data.db.model.User;
-
-import java.util.List;
-
-import io.reactivex.Observable;
+import com.mindorks.framework.mvp.data.db.repository.OptionRepository;
+import com.mindorks.framework.mvp.data.db.repository.QuestionRepository;
+import com.mindorks.framework.mvp.data.db.repository.UserRepository;
 
 
 /**
@@ -30,21 +26,9 @@ import io.reactivex.Observable;
 
 public interface DbHelper {
 
-    Observable<Long> insertUser(final User user);
+    UserRepository getUserRepository();
 
-    Observable<List<User>> getAllUsers();
+    OptionRepository getOptionRepository();
 
-    Observable<List<Question>> getAllQuestions();
-
-    Observable<Boolean> isQuestionEmpty();
-
-    Observable<Boolean> isOptionEmpty();
-
-    Observable<Boolean> saveQuestion(Question question);
-
-    Observable<Boolean> saveOption(Option option);
-
-    Observable<Boolean> saveQuestionList(List<Question> questionList);
-
-    Observable<Boolean> saveOptionList(List<Option> optionList);
+    QuestionRepository getQuestionRepository();
 }

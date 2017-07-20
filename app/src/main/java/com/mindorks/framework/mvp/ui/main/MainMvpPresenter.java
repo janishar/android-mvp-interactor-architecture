@@ -24,7 +24,8 @@ import com.mindorks.framework.mvp.ui.base.MvpPresenter;
  */
 
 @PerActivity
-public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V> {
+public interface MainMvpPresenter<V extends MainMvpView, I extends MainMvpInteractor>
+        extends MvpPresenter<V, I> {
 
     void onDrawerOptionAboutClick();
 

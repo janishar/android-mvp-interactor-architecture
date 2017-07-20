@@ -24,7 +24,8 @@ import com.mindorks.framework.mvp.ui.base.MvpPresenter;
  */
 
 @PerActivity
-public interface LoginMvpPresenter<V extends LoginMvpView> extends MvpPresenter<V> {
+public interface LoginMvpPresenter<V extends LoginMvpView,
+        I extends LoginMvpInteractor> extends MvpPresenter<V, I> {
 
     void onServerLoginClick(String email, String password);
 

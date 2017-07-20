@@ -33,16 +33,16 @@ import io.reactivex.functions.Consumer;
  * Created by janisharali on 27/01/17.
  */
 
-public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
-        implements LoginMvpPresenter<V> {
+public class LoginPresenter<V extends LoginMvpView, I extends LoginMvpInteractor>
+        extends BasePresenter<V, I> implements LoginMvpPresenter<V, I> {
 
     private static final String TAG = "LoginPresenter";
 
     @Inject
-    public LoginPresenter(DataManager dataManager,
+    public LoginPresenter(I mvpInteractor,
                           SchedulerProvider schedulerProvider,
                           CompositeDisposable compositeDisposable) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
     @Override
@@ -62,14 +62,14 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         }
         getMvpView().showLoading();
 
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .doServerLoginApiCall(new LoginRequest.ServerLoginRequest(email, password))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<LoginResponse>() {
                     @Override
                     public void accept(LoginResponse response) throws Exception {
-                        getDataManager().updateUserInfo(
+                        getInteractor().updateUserInfo(
                                 response.getAccessToken(),
                                 response.getUserId(),
                                 DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER,
@@ -109,14 +109,14 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         // instruct LoginActivity to initiate google login
         getMvpView().showLoading();
 
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .doGoogleLoginApiCall(new LoginRequest.GoogleLoginRequest("test1", "test1"))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<LoginResponse>() {
                     @Override
                     public void accept(LoginResponse response) throws Exception {
-                        getDataManager().updateUserInfo(
+                        getInteractor().updateUserInfo(
                                 response.getAccessToken(),
                                 response.getUserId(),
                                 DataManager.LoggedInMode.LOGGED_IN_MODE_GOOGLE,

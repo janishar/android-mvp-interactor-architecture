@@ -13,18 +13,19 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.ui.splash;
+package com.mindorks.framework.mvp.ui.base;
 
-
-import com.mindorks.framework.mvp.di.PerActivity;
-import com.mindorks.framework.mvp.ui.base.MvpPresenter;
+import com.mindorks.framework.mvp.data.DataManager;
 
 /**
- * Created by janisharali on 27/01/17.
+ * Created by janisharali on 20/07/17.
  */
 
-@PerActivity
-public interface SplashMvpPresenter<V extends SplashMvpView,
-        I extends SplashMvpInteractor> extends MvpPresenter<V, I> {
+public interface MvpInteractor {
 
+    DataManager getDataManager();
+
+    void setUserAsLoggedOut();
+
+    void setAccessToken(String accessToken);
 }

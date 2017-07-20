@@ -31,14 +31,14 @@ import io.reactivex.functions.Function;
  * Created by janisharali on 27/01/17.
  */
 
-public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
-        implements SplashMvpPresenter<V> {
+public class SplashPresenter<V extends SplashMvpView, I extends SplashMvpInteractor>
+        extends BasePresenter<V, I> implements SplashMvpPresenter<V, I> {
 
     @Inject
-    public SplashPresenter(DataManager dataManager,
+    public SplashPresenter(I mvpInteractor,
                            SchedulerProvider schedulerProvider,
                            CompositeDisposable compositeDisposable) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
     @Override
@@ -47,14 +47,14 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
 
         getMvpView().startSyncService();
 
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .seedDatabaseQuestions()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .concatMap(new Function<Boolean, ObservableSource<Boolean>>() {
                     @Override
                     public ObservableSource<Boolean> apply(Boolean aBoolean) throws Exception {
-                        return getDataManager().seedDatabaseOptions();
+                        return getInteractor().seedDatabaseOptions();
                     }
                 })
                 .subscribe(new Consumer<Boolean>() {
@@ -80,7 +80,7 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
     }
 
     private void decideNextActivity() {
-        if (getDataManager().getCurrentUserLoggedInMode()
+        if (getInteractor().getCurrentUserLoggedInMode()
                 == DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
             getMvpView().openLoginActivity();
         } else {

@@ -24,6 +24,9 @@ import com.mindorks.framework.mvp.data.AppDataManager;
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.db.AppDbHelper;
 import com.mindorks.framework.mvp.data.db.DbHelper;
+import com.mindorks.framework.mvp.data.db.DbOpenHelper;
+import com.mindorks.framework.mvp.data.db.model.DaoMaster;
+import com.mindorks.framework.mvp.data.db.model.DaoSession;
 import com.mindorks.framework.mvp.data.network.ApiHeader;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.AppApiHelper;
@@ -124,5 +127,11 @@ public class ApplicationModule {
                 .setDefaultFontPath("fonts/source-sans-pro/SourceSansPro-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    DaoSession provideDaoSession(DbOpenHelper dbOpenHelper) {
+        return new DaoMaster(dbOpenHelper.getWritableDb()).newSession();
     }
 }

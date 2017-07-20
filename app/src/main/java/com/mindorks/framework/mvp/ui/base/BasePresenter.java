@@ -27,7 +27,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.mindorks.framework.mvp.R;
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.network.model.ApiError;
 import com.mindorks.framework.mvp.utils.AppConstants;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
@@ -42,23 +41,24 @@ import io.reactivex.disposables.CompositeDisposable;
  * onAttach() and onDetach(). It also handles keeping a reference to the mvpView that
  * can be accessed from the children classes by calling getMvpView().
  */
-public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
+public class BasePresenter<V extends MvpView, I extends MvpInteractor>
+        implements MvpPresenter<V, I> {
 
     private static final String TAG = "BasePresenter";
 
-    private final DataManager mDataManager;
     private final SchedulerProvider mSchedulerProvider;
     private final CompositeDisposable mCompositeDisposable;
 
     private V mMvpView;
+    private I mMvpInteractor;
 
     @Inject
-    public BasePresenter(DataManager dataManager,
+    public BasePresenter(I mvpInteractor,
                          SchedulerProvider schedulerProvider,
                          CompositeDisposable compositeDisposable) {
-        this.mDataManager = dataManager;
-        this.mSchedulerProvider = schedulerProvider;
-        this.mCompositeDisposable = compositeDisposable;
+        mMvpInteractor = mvpInteractor;
+        mSchedulerProvider = schedulerProvider;
+        mCompositeDisposable = compositeDisposable;
     }
 
     @Override
@@ -70,22 +70,27 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     public void onDetach() {
         mCompositeDisposable.dispose();
         mMvpView = null;
+        mMvpInteractor = null;
     }
 
-    public boolean isViewAttached() {
-        return mMvpView != null;
-    }
-
+    @Override
     public V getMvpView() {
         return mMvpView;
     }
 
-    public void checkViewAttached() {
-        if (!isViewAttached()) throw new MvpViewNotAttachedException();
+    @Override
+    public I getInteractor() {
+        return mMvpInteractor;
     }
 
-    public DataManager getDataManager() {
-        return mDataManager;
+    @Override
+    public boolean isViewAttached() {
+        return mMvpView != null;
+    }
+
+    @Override
+    public void checkViewAttached() throws MvpViewNotAttachedException {
+        if (!isViewAttached()) throw new MvpViewNotAttachedException();
     }
 
     public SchedulerProvider getSchedulerProvider() {
@@ -145,7 +150,7 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     @Override
     public void setUserAsLoggedOut() {
-        getDataManager().setAccessToken(null);
+        getInteractor().setAccessToken(null);
     }
 
     public static class MvpViewNotAttachedException extends RuntimeException {

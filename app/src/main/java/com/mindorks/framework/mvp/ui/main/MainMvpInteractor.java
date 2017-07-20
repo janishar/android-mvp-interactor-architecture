@@ -13,18 +13,30 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.ui.splash;
+package com.mindorks.framework.mvp.ui.main;
 
+import com.mindorks.framework.mvp.data.db.model.Question;
+import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.ui.base.MvpInteractor;
 
-import com.mindorks.framework.mvp.di.PerActivity;
-import com.mindorks.framework.mvp.ui.base.MvpPresenter;
+import java.util.List;
+
+import io.reactivex.Observable;
 
 /**
- * Created by janisharali on 27/01/17.
+ * Created by janisharali on 20/07/17.
  */
 
-@PerActivity
-public interface SplashMvpPresenter<V extends SplashMvpView,
-        I extends SplashMvpInteractor> extends MvpPresenter<V, I> {
+public interface MainMvpInteractor extends MvpInteractor {
+
+    Observable<LogoutResponse> doLogoutApiCall();
+
+    Observable<List<Question>> getAllQuestions();
+
+    String getCurrentUserName();
+
+    String getCurrentUserEmail();
+
+    String getCurrentUserProfilePicUrl();
 
 }

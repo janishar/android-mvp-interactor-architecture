@@ -15,16 +15,19 @@
 
 package com.mindorks.framework.mvp.ui.splash;
 
+import com.mindorks.framework.mvp.ui.base.MvpInteractor;
 
-import com.mindorks.framework.mvp.di.PerActivity;
-import com.mindorks.framework.mvp.ui.base.MvpPresenter;
+import io.reactivex.Observable;
 
 /**
- * Created by janisharali on 27/01/17.
+ * Created by janisharali on 20/07/17.
  */
 
-@PerActivity
-public interface SplashMvpPresenter<V extends SplashMvpView,
-        I extends SplashMvpInteractor> extends MvpPresenter<V, I> {
+public interface SplashMvpInteractor extends MvpInteractor {
 
+    Observable<Boolean> seedDatabaseQuestions();
+
+    Observable<Boolean> seedDatabaseOptions();
+
+    int getCurrentUserLoggedInMode();
 }
