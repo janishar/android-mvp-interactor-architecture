@@ -21,8 +21,8 @@ import com.mindorks.framework.mvp.ui.base.MvpPresenter;
  * Created by janisharali on 25/05/17.
  */
 
-public interface OpenSourceMvpPresenter<V extends OpenSourceMvpView>
-        extends MvpPresenter<V> {
+public interface OpenSourceMvpPresenter<V extends OpenSourceMvpView,
+        I extends OpenSourceMvpInteractor> extends MvpPresenter<V, I> {
 
     void onViewPrepared();
 }

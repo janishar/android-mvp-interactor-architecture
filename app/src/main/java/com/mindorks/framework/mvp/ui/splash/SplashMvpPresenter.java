@@ -24,6 +24,7 @@ import com.mindorks.framework.mvp.ui.base.MvpPresenter;
  */
 
 @PerActivity
-public interface SplashMvpPresenter<V extends SplashMvpView> extends MvpPresenter<V> {
+public interface SplashMvpPresenter<V extends SplashMvpView,
+        I extends SplashMvpInteractor> extends MvpPresenter<V, I> {
 
 }

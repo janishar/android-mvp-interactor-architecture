@@ -16,7 +16,6 @@
 package com.mindorks.framework.mvp.ui.feed.blogs;
 
 import com.androidnetworking.error.ANError;
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
@@ -31,20 +30,21 @@ import io.reactivex.functions.Consumer;
  * Created by janisharali on 25/05/17.
  */
 
-public class BlogPresenter<V extends BlogMvpView> extends BasePresenter<V>
-        implements BlogMvpPresenter<V> {
+public class BlogPresenter<V extends BlogMvpView,
+        I extends BlogMvpInteractor> extends BasePresenter<V, I>
+        implements BlogMvpPresenter<V, I> {
 
     @Inject
-    public BlogPresenter(DataManager dataManager,
+    public BlogPresenter(I mvpInteractor,
                          SchedulerProvider schedulerProvider,
                          CompositeDisposable compositeDisposable) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
     @Override
     public void onViewPrepared() {
         getMvpView().showLoading();
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .getBlogApiCall()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())

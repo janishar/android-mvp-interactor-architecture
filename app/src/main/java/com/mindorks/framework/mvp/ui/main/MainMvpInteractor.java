@@ -13,38 +13,30 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.data.db;
+package com.mindorks.framework.mvp.ui.main;
 
-import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
-import com.mindorks.framework.mvp.data.db.model.User;
+import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.ui.base.MvpInteractor;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 
-
 /**
- * Created by janisharali on 08/12/16.
+ * Created by janisharali on 20/07/17.
  */
 
-public interface DbHelper {
+public interface MainMvpInteractor extends MvpInteractor {
 
-    Observable<Long> insertUser(final User user);
-
-    Observable<List<User>> getAllUsers();
+    Observable<LogoutResponse> doLogoutApiCall();
 
     Observable<List<Question>> getAllQuestions();
 
-    Observable<Boolean> isQuestionEmpty();
+    String getCurrentUserName();
 
-    Observable<Boolean> isOptionEmpty();
+    String getCurrentUserEmail();
 
-    Observable<Boolean> saveQuestion(Question question);
+    String getCurrentUserProfilePicUrl();
 
-    Observable<Boolean> saveOption(Option option);
-
-    Observable<Boolean> saveQuestionList(List<Question> questionList);
-
-    Observable<Boolean> saveOptionList(List<Option> optionList);
 }

@@ -15,20 +15,12 @@
 
 package com.mindorks.framework.mvp.ui.main.rating;
 
-import com.mindorks.framework.mvp.ui.base.MvpPresenter;
+import com.mindorks.framework.mvp.ui.base.MvpInteractor;
 
 /**
- * Created by janisharali on 22/03/17.
+ * Created by janisharali on 20/07/17.
  */
 
-public interface RatingDialogMvpPresenter<V extends RatingDialogMvpView,
-        I extends RatingDialogMvpInteractor> extends MvpPresenter<V, I> {
+public interface RatingDialogMvpInteractor extends MvpInteractor {
 
-    void onRatingSubmitted(float rating, String message);
-
-    void onCancelClicked();
-
-    void onLaterClicked();
-
-    void onPlayStoreRatingClicked();
 }

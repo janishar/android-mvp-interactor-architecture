@@ -13,27 +13,27 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.ui.about;
+package com.mindorks.framework.mvp.service;
 
-import com.mindorks.framework.mvp.ui.base.BasePresenter;
-import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
+import com.mindorks.framework.mvp.data.disk.DiskHelper;
+import com.mindorks.framework.mvp.data.network.ApiHelper;
+import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
+import com.mindorks.framework.mvp.ui.base.BaseInteractor;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.CompositeDisposable;
-
 /**
- * Created by janisharali on 27/01/17.
+ * Created by janisharali on 20/07/17.
  */
 
-public class AboutPresenter<V extends AboutMvpView,
-        I extends AboutMvpInteractor> extends BasePresenter<V, I>
-        implements AboutMvpPresenter<V, I> {
+public class SyncInteractor extends BaseInteractor
+        implements SyncMvpInteractor {
 
     @Inject
-    public AboutPresenter(I mvpInteractor,
-                          SchedulerProvider schedulerProvider,
-                          CompositeDisposable compositeDisposable) {
-        super(mvpInteractor, schedulerProvider, compositeDisposable);
+    public SyncInteractor(PreferencesHelper preferencesHelper,
+                          ApiHelper apiHelper,
+                          DiskHelper diskHelper) {
+
+        super(preferencesHelper, apiHelper, diskHelper);
     }
 }

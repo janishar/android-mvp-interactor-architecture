@@ -46,7 +46,7 @@ public class BlogFragment extends BaseFragment implements
     private static final String TAG = "BlogFragment";
 
     @Inject
-    BlogMvpPresenter<BlogMvpView> mPresenter;
+    BlogMvpPresenter<BlogMvpView, BlogMvpInteractor> mPresenter;
 
     @Inject
     BlogAdapter mBlogAdapter;

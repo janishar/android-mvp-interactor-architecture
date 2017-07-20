@@ -17,7 +17,11 @@ package com.mindorks.framework.mvp.di.module;
 
 import android.app.Service;
 
+import com.mindorks.framework.mvp.service.SyncInteractor;
+import com.mindorks.framework.mvp.service.SyncMvpInteractor;
+
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * Created by janisharali on 01/02/17.
@@ -30,5 +34,10 @@ public class ServiceModule {
 
     public ServiceModule(Service service) {
         mService = service;
+    }
+
+    @Provides
+    SyncMvpInteractor provideSyncMvpInteractor(SyncInteractor interactor) {
+        return interactor;
     }
 }

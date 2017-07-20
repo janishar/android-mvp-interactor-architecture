@@ -17,7 +17,6 @@ package com.mindorks.framework.mvp.ui.main.rating;
 
 
 import com.mindorks.framework.mvp.R;
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
@@ -29,18 +28,19 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by janisharali on 22/03/17.
  */
 
-public class RatingDialogPresenter<V extends RatingDialogMvpView> extends BasePresenter<V>
-        implements RatingDialogMvpPresenter<V> {
+public class RatingDialogPresenter<V extends RatingDialogMvpView,
+        I extends RatingDialogMvpInteractor> extends BasePresenter<V, I>
+        implements RatingDialogMvpPresenter<V, I> {
 
     public static final String TAG = "RatingDialogPresenter";
 
     private boolean isRatingSecondaryActionShown = false;
 
     @Inject
-    public RatingDialogPresenter(DataManager dataManager,
+    public RatingDialogPresenter(I mvpInteractor,
                                  SchedulerProvider schedulerProvider,
                                  CompositeDisposable compositeDisposable) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
     @Override

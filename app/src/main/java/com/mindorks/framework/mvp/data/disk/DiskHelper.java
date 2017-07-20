@@ -13,18 +13,26 @@
  * limitations under the License
  */
 
-package com.mindorks.framework.mvp.di.component;
+package com.mindorks.framework.mvp.data.disk;
 
-import com.mindorks.framework.mvp.di.module.ApplicationTestModule;
+import com.mindorks.framework.mvp.data.db.model.Option;
+import com.mindorks.framework.mvp.data.db.model.Question;
+
+import java.util.List;
 
 import javax.inject.Singleton;
 
-import dagger.Component;
+import io.reactivex.Observable;
+
 
 /**
- * Created by amitshekhar on 03/02/17.
+ * Created by janisharali on 20/07/17.
  */
+
 @Singleton
-@Component(modules = ApplicationTestModule.class)
-public interface TestComponent extends ApplicationComponent {
+public interface DiskHelper {
+
+    Observable<List<Question>> getQuizQuestions();
+
+    Observable<List<Option>> getQuizOptions();
 }

@@ -40,7 +40,7 @@ public class AboutFragment extends BaseFragment implements AboutMvpView {
     public static final String TAG = "AboutFragment";
 
     @Inject
-    AboutMvpPresenter<AboutMvpView> mPresenter;
+    AboutMvpPresenter<AboutMvpView, AboutMvpInteractor> mPresenter;
 
     public static AboutFragment newInstance() {
         Bundle args = new Bundle();

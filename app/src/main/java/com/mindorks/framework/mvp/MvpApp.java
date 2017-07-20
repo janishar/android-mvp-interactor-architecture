@@ -19,7 +19,6 @@ import android.app.Application;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor.Level;
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.di.component.ApplicationComponent;
 import com.mindorks.framework.mvp.di.component.DaggerApplicationComponent;
 import com.mindorks.framework.mvp.di.module.ApplicationModule;
@@ -35,9 +34,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  */
 
 public class MvpApp extends Application {
-
-    @Inject
-    DataManager mDataManager;
 
     @Inject
     CalligraphyConfig mCalligraphyConfig;

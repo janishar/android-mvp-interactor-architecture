@@ -47,7 +47,7 @@ public class RateUsDialog extends BaseDialog implements RatingDialogMvpView {
     private static final String TAG = "RateUsDialog";
 
     @Inject
-    RatingDialogMvpPresenter<RatingDialogMvpView> mPresenter;
+    RatingDialogMvpPresenter<RatingDialogMvpView, RatingDialogMvpInteractor> mPresenter;
 
     @BindView(R.id.rating_bar_feedback)
     RatingBar mRatingBar;

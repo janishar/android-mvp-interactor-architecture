@@ -15,8 +15,8 @@
 
 package com.mindorks.framework.mvp.ui.feed;
 
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
+import com.mindorks.framework.mvp.ui.base.MvpInteractor;
 import com.mindorks.framework.mvp.ui.base.MvpView;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
@@ -28,15 +28,15 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by janisharali on 25/05/17.
  */
 
-public class FeedPresenter<V extends MvpView> extends BasePresenter<V> implements
-        FeedMvpPresenter<V> {
+public class FeedPresenter<V extends MvpView, I extends MvpInteractor>
+        extends BasePresenter<V, I> implements FeedMvpPresenter<V, I> {
 
     private static final String TAG = "FeedPresenter";
 
     @Inject
-    public FeedPresenter(DataManager dataManager,
+    public FeedPresenter(I mvpInteractor,
                          SchedulerProvider schedulerProvider,
                          CompositeDisposable compositeDisposable) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 }

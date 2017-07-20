@@ -15,22 +15,24 @@
 
 package com.mindorks.framework.mvp.ui.login;
 
+import com.mindorks.framework.mvp.data.network.model.LoginRequest;
+import com.mindorks.framework.mvp.data.network.model.LoginResponse;
+import com.mindorks.framework.mvp.ui.base.MvpInteractor;
 
-import com.mindorks.framework.mvp.di.PerActivity;
-import com.mindorks.framework.mvp.ui.base.MvpPresenter;
+import io.reactivex.Observable;
 
 /**
- * Created by janisharali on 27/01/17.
+ * Created by janisharali on 20/07/17.
  */
 
-@PerActivity
-public interface LoginMvpPresenter<V extends LoginMvpView,
-        I extends LoginMvpInteractor> extends MvpPresenter<V, I> {
+public interface LoginMvpInteractor extends MvpInteractor {
 
-    void onServerLoginClick(String email, String password);
+    Observable<LoginResponse> doServerLoginApiCall(
+            LoginRequest.ServerLoginRequest request);
 
-    void onGoogleLoginClick();
+    Observable<LoginResponse> doGoogleLoginApiCall(
+            LoginRequest.GoogleLoginRequest request);
 
-    void onFacebookLoginClick();
-
+    Observable<LoginResponse> doFacebookLoginApiCall(
+            LoginRequest.FacebookLoginRequest request);
 }

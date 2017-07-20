@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
 public class FeedActivity extends BaseActivity implements FeedMvpView {
 
     @Inject
-    FeedMvpPresenter<FeedMvpView> mPresenter;
+    FeedMvpPresenter<FeedMvpView, FeedMvpInteractor> mPresenter;
 
     @Inject
     FeedPagerAdapter mPagerAdapter;

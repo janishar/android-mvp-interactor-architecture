@@ -17,10 +17,10 @@ package com.mindorks.framework.mvp.ui.login;
 
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.R;
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
+import com.mindorks.framework.mvp.utils.AppConstants;
 import com.mindorks.framework.mvp.utils.CommonUtils;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
@@ -33,16 +33,16 @@ import io.reactivex.functions.Consumer;
  * Created by janisharali on 27/01/17.
  */
 
-public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
-        implements LoginMvpPresenter<V> {
+public class LoginPresenter<V extends LoginMvpView, I extends LoginMvpInteractor>
+        extends BasePresenter<V, I> implements LoginMvpPresenter<V, I> {
 
     private static final String TAG = "LoginPresenter";
 
     @Inject
-    public LoginPresenter(DataManager dataManager,
+    public LoginPresenter(I mvpInteractor,
                           SchedulerProvider schedulerProvider,
                           CompositeDisposable compositeDisposable) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
     @Override
@@ -62,17 +62,17 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         }
         getMvpView().showLoading();
 
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .doServerLoginApiCall(new LoginRequest.ServerLoginRequest(email, password))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<LoginResponse>() {
                     @Override
                     public void accept(LoginResponse response) throws Exception {
-                        getDataManager().updateUserInfo(
+                        getInteractor().updateUserInfo(
                                 response.getAccessToken(),
                                 response.getUserId(),
-                                DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER,
+                                AppConstants.LoggedInMode.LOGGED_IN_MODE_SERVER,
                                 response.getUserName(),
                                 response.getUserEmail(),
                                 response.getGoogleProfilePicUrl());
@@ -109,17 +109,17 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         // instruct LoginActivity to initiate google login
         getMvpView().showLoading();
 
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .doGoogleLoginApiCall(new LoginRequest.GoogleLoginRequest("test1", "test1"))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<LoginResponse>() {
                     @Override
                     public void accept(LoginResponse response) throws Exception {
-                        getDataManager().updateUserInfo(
+                        getInteractor().updateUserInfo(
                                 response.getAccessToken(),
                                 response.getUserId(),
-                                DataManager.LoggedInMode.LOGGED_IN_MODE_GOOGLE,
+                                AppConstants.LoggedInMode.LOGGED_IN_MODE_GOOGLE,
                                 response.getUserName(),
                                 response.getUserEmail(),
                                 response.getGoogleProfilePicUrl());
@@ -155,17 +155,17 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         // instruct LoginActivity to initiate facebook login
         getMvpView().showLoading();
 
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .doFacebookLoginApiCall(new LoginRequest.FacebookLoginRequest("test3", "test4"))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<LoginResponse>() {
                     @Override
                     public void accept(LoginResponse response) throws Exception {
-                        getDataManager().updateUserInfo(
+                        getInteractor().updateUserInfo(
                                 response.getAccessToken(),
                                 response.getUserId(),
-                                DataManager.LoggedInMode.LOGGED_IN_MODE_FB,
+                                AppConstants.LoggedInMode.LOGGED_IN_MODE_FB,
                                 response.getUserName(),
                                 response.getUserEmail(),
                                 response.getGoogleProfilePicUrl());

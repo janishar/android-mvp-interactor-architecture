@@ -24,6 +24,7 @@ import com.mindorks.framework.mvp.ui.base.MvpPresenter;
  */
 
 @PerActivity
-public interface AboutMvpPresenter<V extends AboutMvpView> extends MvpPresenter<V> {
+public interface AboutMvpPresenter<V extends AboutMvpView,
+        I extends AboutMvpInteractor> extends MvpPresenter<V, I> {
 
 }

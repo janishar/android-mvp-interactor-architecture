@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 public class SplashActivity extends BaseActivity implements SplashMvpView {
 
     @Inject
-    SplashMvpPresenter<SplashMvpView> mPresenter;
+    SplashMvpPresenter<SplashMvpView, SplashMvpInteractor> mPresenter;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, SplashActivity.class);

@@ -16,7 +16,6 @@
 package com.mindorks.framework.mvp.ui.main;
 
 import com.androidnetworking.error.ANError;
-import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
@@ -34,16 +33,16 @@ import io.reactivex.functions.Consumer;
  * Created by janisharali on 27/01/17.
  */
 
-public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
-        implements MainMvpPresenter<V> {
+public class MainPresenter<V extends MainMvpView, I extends MainMvpInteractor>
+        extends BasePresenter<V, I> implements MainMvpPresenter<V, I> {
 
     private static final String TAG = "MainPresenter";
 
     @Inject
-    public MainPresenter(DataManager dataManager,
+    public MainPresenter(I mvpInteractor,
                          SchedulerProvider schedulerProvider,
                          CompositeDisposable compositeDisposable) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     public void onDrawerOptionLogoutClick() {
         getMvpView().showLoading();
 
-        getCompositeDisposable().add(getDataManager().doLogoutApiCall()
+        getCompositeDisposable().add(getInteractor().doLogoutApiCall()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<LogoutResponse>() {
@@ -66,7 +65,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
                             return;
                         }
 
-                        getDataManager().setUserAsLoggedOut();
+                        getInteractor().setUserAsLoggedOut();
                         getMvpView().hideLoading();
                         getMvpView().openLoginActivity();
                     }
@@ -91,7 +90,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
     @Override
     public void onViewInitialized() {
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .getAllQuestions()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
@@ -111,7 +110,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
     @Override
     public void onCardExhausted() {
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getInteractor()
                 .getAllQuestions()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
@@ -136,17 +135,17 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
         }
         getMvpView().updateAppVersion();
 
-        final String currentUserName = getDataManager().getCurrentUserName();
+        final String currentUserName = getInteractor().getCurrentUserName();
         if (currentUserName != null && !currentUserName.isEmpty()) {
             getMvpView().updateUserName(currentUserName);
         }
 
-        final String currentUserEmail = getDataManager().getCurrentUserEmail();
+        final String currentUserEmail = getInteractor().getCurrentUserEmail();
         if (currentUserEmail != null && !currentUserEmail.isEmpty()) {
             getMvpView().updateUserEmail(currentUserEmail);
         }
 
-        final String profilePicUrl = getDataManager().getCurrentUserProfilePicUrl();
+        final String profilePicUrl = getInteractor().getCurrentUserProfilePicUrl();
         if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
             getMvpView().updateUserProfilePic(profilePicUrl);
         }
