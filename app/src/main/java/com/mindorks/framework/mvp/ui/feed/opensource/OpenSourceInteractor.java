@@ -15,7 +15,6 @@
 
 package com.mindorks.framework.mvp.ui.feed.opensource;
 
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
@@ -34,10 +33,9 @@ public class OpenSourceInteractor extends BaseInteractor
 
     @Inject
     public OpenSourceInteractor(PreferencesHelper preferencesHelper,
-                                ApiHelper apiHelper,
-                                DiskHelper diskHelper) {
+                                ApiHelper apiHelper) {
 
-        super(preferencesHelper, apiHelper, diskHelper);
+        super(preferencesHelper, apiHelper);
     }
 
     @Override

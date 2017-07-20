@@ -16,7 +16,6 @@
 package com.mindorks.framework.mvp.ui.login;
 
 import com.mindorks.framework.mvp.data.db.repository.UserRepository;
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
@@ -39,10 +38,9 @@ public class LoginInteractor extends BaseInteractor
     @Inject
     public LoginInteractor(PreferencesHelper preferencesHelper,
                            ApiHelper apiHelper,
-                           DiskHelper diskHelper,
                            UserRepository userRepository) {
 
-        super(preferencesHelper, apiHelper, diskHelper);
+        super(preferencesHelper, apiHelper);
         mUserRepository = userRepository;
     }
 

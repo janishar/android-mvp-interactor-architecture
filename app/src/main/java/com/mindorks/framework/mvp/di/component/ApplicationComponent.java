@@ -20,7 +20,6 @@ import android.content.Context;
 
 import com.mindorks.framework.mvp.MvpApp;
 import com.mindorks.framework.mvp.data.db.model.DaoSession;
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import com.mindorks.framework.mvp.di.ApplicationContext;
@@ -51,8 +50,6 @@ public interface ApplicationComponent {
     PreferencesHelper preferencesHelper();
 
     ApiHelper apiHelper();
-
-    DiskHelper discHelper();
 
     DaoSession daoSession();
 }

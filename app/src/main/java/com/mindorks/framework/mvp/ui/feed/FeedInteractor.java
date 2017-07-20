@@ -15,7 +15,6 @@
 
 package com.mindorks.framework.mvp.ui.feed;
 
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import com.mindorks.framework.mvp.ui.base.BaseInteractor;
@@ -30,9 +29,8 @@ public class FeedInteractor extends BaseInteractor implements FeedMvpInteractor 
 
     @Inject
     public FeedInteractor(PreferencesHelper preferencesHelper,
-                          ApiHelper apiHelper,
-                          DiskHelper diskHelper) {
+                          ApiHelper apiHelper) {
 
-        super(preferencesHelper, apiHelper, diskHelper);
+        super(preferencesHelper, apiHelper);
     }
 }

@@ -15,7 +15,6 @@
 
 package com.mindorks.framework.mvp.ui.base;
 
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import com.mindorks.framework.mvp.utils.AppConstants;
@@ -27,8 +26,6 @@ import com.mindorks.framework.mvp.utils.AppConstants;
 public interface MvpInteractor {
 
     ApiHelper getApiHelper();
-
-    DiskHelper getDiscHelper();
 
     PreferencesHelper getPreferencesHelper();
 

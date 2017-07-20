@@ -15,22 +15,30 @@
 
 package com.mindorks.framework.mvp.ui.splash;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.internal.$Gson$Types;
+import com.google.gson.reflect.TypeToken;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.repository.OptionRepository;
 import com.mindorks.framework.mvp.data.db.repository.QuestionRepository;
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
+import com.mindorks.framework.mvp.di.ApplicationContext;
 import com.mindorks.framework.mvp.ui.base.BaseInteractor;
+import com.mindorks.framework.mvp.utils.AppConstants;
+import com.mindorks.framework.mvp.utils.FileUtils;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 
 /**
@@ -42,15 +50,17 @@ public class SplashInteractor extends BaseInteractor
 
     private QuestionRepository mQuestionRepository;
     private OptionRepository mOptionRepository;
+    private Context mContext;
 
     @Inject
-    public SplashInteractor(PreferencesHelper preferencesHelper,
+    public SplashInteractor(@ApplicationContext Context context,
+                            PreferencesHelper preferencesHelper,
                             ApiHelper apiHelper,
-                            DiskHelper diskHelper,
                             QuestionRepository questionRepository,
                             OptionRepository optionRepository) {
 
-        super(preferencesHelper, apiHelper, diskHelper);
+        super(preferencesHelper, apiHelper);
+        mContext = context;
         mQuestionRepository = questionRepository;
         mOptionRepository = optionRepository;
     }
@@ -58,25 +68,26 @@ public class SplashInteractor extends BaseInteractor
     @Override
     public Observable<Boolean> seedDatabaseQuestions() {
 
+        GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
+        final Gson gson = builder.create();
+
         return mQuestionRepository.isQuestionEmpty()
                 .concatMap(new Function<Boolean, ObservableSource<? extends Boolean>>() {
                     @Override
-                    public ObservableSource<? extends Boolean> apply(@NonNull Boolean isEmpty)
+                    public ObservableSource<? extends Boolean> apply(Boolean isEmpty)
                             throws Exception {
                         if (isEmpty) {
-                            return getDiscHelper()
-                                    .getQuizQuestions()
-                                    .concatMap(new Function<List<Question>,
-                                            ObservableSource<? extends Boolean>>() {
-                                        @Override
-                                        public ObservableSource<? extends Boolean> apply(
-                                                @NonNull List<Question> questions) throws
-                                                Exception {
-                                            return mQuestionRepository
-                                                    .saveQuestionList(questions);
-                                        }
-                                    });
+                            Type type = $Gson$Types.newParameterizedTypeWithOwner(
+                                    null,
+                                    List.class,
+                                    Question.class);
+                            List<Question> questionList = gson.fromJson(
+                                    FileUtils.loadJSONFromAsset(
+                                            mContext,
+                                            AppConstants.SEED_DATABASE_QUESTIONS),
+                                    type);
 
+                            return mQuestionRepository.saveQuestionList(questionList);
                         }
                         return Observable.just(false);
                     }
@@ -86,26 +97,23 @@ public class SplashInteractor extends BaseInteractor
     @Override
     public Observable<Boolean> seedDatabaseOptions() {
 
-        return mOptionRepository
-                .isOptionEmpty()
+        GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
+        final Gson gson = builder.create();
+
+        return mOptionRepository.isOptionEmpty()
                 .concatMap(new Function<Boolean, ObservableSource<? extends Boolean>>() {
                     @Override
                     public ObservableSource<? extends Boolean> apply(Boolean isEmpty)
                             throws Exception {
                         if (isEmpty) {
-                            return getDiscHelper()
-                                    .getQuizOptions()
-                                    .concatMap(new Function<List<Option>,
-                                            ObservableSource<? extends Boolean>>() {
-                                        @Override
-                                        public ObservableSource<? extends Boolean> apply(
-                                                @NonNull List<Option> options) throws
-                                                Exception {
-                                            return mOptionRepository
-                                                    .saveOptionList(options);
-                                        }
-                                    });
-
+                            Type type = new TypeToken<List<Option>>() {
+                            }.getType();
+                            List<Option> optionList = gson.fromJson(
+                                    FileUtils.loadJSONFromAsset(
+                                            mContext,
+                                            AppConstants.SEED_DATABASE_OPTIONS),
+                                    type);
+                            return mOptionRepository.saveOptionList(optionList);
                         }
                         return Observable.just(false);
                     }

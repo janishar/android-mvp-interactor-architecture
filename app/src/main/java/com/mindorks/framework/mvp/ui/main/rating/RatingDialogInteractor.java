@@ -15,7 +15,6 @@
 
 package com.mindorks.framework.mvp.ui.main.rating;
 
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import com.mindorks.framework.mvp.ui.base.BaseInteractor;
@@ -31,9 +30,8 @@ public class RatingDialogInteractor extends BaseInteractor
 
     @Inject
     public RatingDialogInteractor(PreferencesHelper preferencesHelper,
-                                  ApiHelper apiHelper,
-                                  DiskHelper diskHelper) {
+                                  ApiHelper apiHelper) {
 
-        super(preferencesHelper, apiHelper, diskHelper);
+        super(preferencesHelper, apiHelper);
     }
 }

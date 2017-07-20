@@ -15,7 +15,6 @@
 
 package com.mindorks.framework.mvp.ui.base;
 
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import com.mindorks.framework.mvp.utils.AppConstants;
@@ -30,25 +29,17 @@ public class BaseInteractor implements MvpInteractor {
 
     private final PreferencesHelper mPreferencesHelper;
     private final ApiHelper mApiHelper;
-    private final DiskHelper mDiskHelper;
 
     @Inject
     public BaseInteractor(PreferencesHelper preferencesHelper,
-                          ApiHelper apiHelper,
-                          DiskHelper diskHelper) {
+                          ApiHelper apiHelper) {
         mPreferencesHelper = preferencesHelper;
         mApiHelper = apiHelper;
-        mDiskHelper = diskHelper;
     }
 
     @Override
     public ApiHelper getApiHelper() {
         return mApiHelper;
-    }
-
-    @Override
-    public DiskHelper getDiscHelper() {
-        return mDiskHelper;
     }
 
     @Override

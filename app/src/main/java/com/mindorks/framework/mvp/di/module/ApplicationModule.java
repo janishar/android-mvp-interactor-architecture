@@ -23,8 +23,6 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.db.DbOpenHelper;
 import com.mindorks.framework.mvp.data.db.model.DaoMaster;
 import com.mindorks.framework.mvp.data.db.model.DaoSession;
-import com.mindorks.framework.mvp.data.disk.AppDiskHelper;
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHeader;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.AppApiHelper;
@@ -82,12 +80,6 @@ public class ApplicationModule {
     @PreferenceInfo
     String providePreferenceName() {
         return AppConstants.PREF_NAME;
-    }
-
-    @Provides
-    @Singleton
-    DiskHelper provideDbHelper(AppDiskHelper appDiskHelper) {
-        return appDiskHelper;
     }
 
     @Provides

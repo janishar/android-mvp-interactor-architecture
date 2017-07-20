@@ -17,7 +17,6 @@ package com.mindorks.framework.mvp.ui.main;
 
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.repository.QuestionRepository;
-import com.mindorks.framework.mvp.data.disk.DiskHelper;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
@@ -41,10 +40,9 @@ public class MainInteractor extends BaseInteractor
     @Inject
     public MainInteractor(PreferencesHelper preferencesHelper,
                           ApiHelper apiHelper,
-                          DiskHelper diskHelper,
                           QuestionRepository questionRepository) {
 
-        super(preferencesHelper, apiHelper, diskHelper);
+        super(preferencesHelper, apiHelper);
         mQuestionRepository = questionRepository;
     }
 
