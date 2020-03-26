@@ -67,8 +67,7 @@ This repository contains a detailed sample app that implements MVP architecture 
 10. [Powerful Android ORM: greenDAO 3 Tutorial](https://mindorks.com/blog/powerful-android-orm-greendao-3-tutorial)
 
 
-### Playstore App of Mindorks build on the original MVP architecture
-[Correctify: An English Editing and Learning app](https://play.google.com/store/apps/details?id=com.mindorks.correctify)
+### Learn to build a ride-sharing Android app like Uber, Lyft - [Check here](https://github.com/MindorksOpenSource/ridesharing-uber-lyft-app)
 
 ### Mindorks open source projects
 [Check out Mindorks awesome open source projects here](https://mindorks.com/open-source-projects)
