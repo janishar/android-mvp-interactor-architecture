@@ -27,6 +27,12 @@ This repository contains a detailed sample app that implements MVP architecture 
 <br>
 <br>
 
+# About The Author
+You can connect with me here:
+* [Janishar Ali](https://janisharali.com)
+* [Twitter](https://twitter.com/janisharali)
+* [YouTube Channel](https://www.youtube.com/@unusualcode)
+
 # Read the below listed articles. They describe the MVP concepts and the Project structure.
 1. [Android MVP Architecture Extension with Interactors and Repositories](https://blog.mindorks.com/android-mvp-architecture-extension-with-interactors-and-repositories-bd4b51972339)
 2. [MVP: Part 1](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-1-74efaf1cda40#.lkml1yggq)
@@ -78,7 +84,7 @@ This is a boilerplate project aimed to help bootstrap new Android MVP Applicatio
 
 ### License
 ```
-   Copyright (C) 2022 JANISHAR ALI ANWAR
+   Copyright (C) 2023 JANISHAR ALI ANWAR
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
