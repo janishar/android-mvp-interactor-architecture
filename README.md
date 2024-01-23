@@ -1,4 +1,11 @@
-# Android MVP Architecture: Enhanced with Interactors and Repositories: Sample App
+[![Deprecated](https://img.shields.io/badge/deprecated-yes-red)](https://github.com/janishar/wimm-android-app)
+
+---
+# This Project is [Deprecated] goto latest project: [Modern Android Development - WhereIsMyMotivation](https://github.com/janishar/wimm-android-app)
+---
+
+# Deprecated
+### Android MVP Architecture: Enhanced with Interactors and Repositories: Sample App
 
 This repository is an extension of the [android-mvp-architecture](https://github.com/MindorksOpenSource/android-mvp-architecture). It breaks the DataManager into Interactors and DbHelper into Repositories. These changes makes it fit for very large projects, for smaller projects the above mentioned repository is better.
 
